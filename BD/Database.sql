@@ -22,3 +22,5 @@ INSERT INTO Login (username, password) VALUES
     ('usuario2', 'senha2');
 
 
+INSERT INTO Login (username, password) VALUES
+    ('rafa@gmail.com', 'root');
