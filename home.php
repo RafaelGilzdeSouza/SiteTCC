@@ -23,7 +23,7 @@ require_once "validador_acesso.php";
 
     <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
-        <img src="logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         App Help Desk
       </a>
       <ul class="navbar-nav">
@@ -47,12 +47,12 @@ require_once "validador_acesso.php";
               <div class="row">
                 <div class="col-6 d-flex justify-content-center">
                   <a href="abrir_chamado.php">
-                    <img src="formulario_abrir_chamado.png" width="70" height="70">
+                    <img src="img/formulario_abrir_chamado.png" width="70" height="70">
                   </a>
                 </div>
                 <div class="col-6 d-flex justify-content-center">
                    <a href="consultar_chamado.php">
-                  <img src="formulario_consultar_chamado.png" width="70" height="70">
+                  <img src="img/formulario_consultar_chamado.png" width="70" height="70">
                   </a>
                 </div>
               </div>
