@@ -1,26 +1,26 @@
 create database Webhealth;
 use webhealth;
 
-create table User(
+create table usuarios(
 id int(4) auto_increment,
 nome varchar(40) not null,
-email varchar(50),
+email varchar(50)not null,
+senha varchar (25) not null,
 telefone varchar(12) not null,
+sexo ENUM('Masculino', 'Feminino') not null,
+endereço varchar(50),
+cidade varchar(50) not null,
+estado varchar(2)not null,
+cep varchar (8),
 primary key(id)
 );
 
-SELECT * FROM User;
-
-create table Login(
-id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
-
-INSERT INTO Login (username, password) VALUES
-    ('Rafael', 'root'),
-    ('usuario2', 'senha2');
+SELECT * FROM usuarios;
 
 
-INSERT INTO Login (username, password) VALUES
-    ('rafa@gmail.com', 'root');
+INSERT INTO usuarios (nome, email, senha, telefone, sexo, endereço, cidade, estado,  cep) VALUES
+    ('Rafael', 'rafagilz@gmail.com', 'root','44444444444', 'Masculino', 'rua dos bobos', 'Bom retiro', 'sc', '00000000');
+
+
+    
+    

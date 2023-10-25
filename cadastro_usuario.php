@@ -12,6 +12,16 @@
     <div class="container">
         <h2>Formulário de Cadastro</h2>
         <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label for="inputname4">Nome</label>
+                    <input type="text" class="form-control" placeholder="Nome">
+                </div>
+                <div class="form-group col-md-6">
+                <label for="inputlastname4">Sobrenome</label>
+                    <input type="text" class="form-control" placeholder="Sobrenome">
+                </div>
+            </div>
             <div class="form-group">
                 <label for="inputEmail4">Email</label>
                 <input type="email" class="form-control" id="inputEmail4" placeholder="Email">

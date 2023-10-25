@@ -6,7 +6,7 @@ require_once 'conexao.php';
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
-$query = "SELECT * FROM Login WHERE username = ? AND password = ?";
+$query = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, "ss", $email, $senha);
 mysqli_stmt_execute($stmt);
@@ -17,7 +17,7 @@ $usuario_id = null;
 $usuario_perfil_id = null;
 
 foreach ($result as $user) {
-    if ($user['username'] == $email && $user['password'] == $senha) {
+    if ($user['email'] == $email && $user['senha'] == $senha) {
         $usuario_autenticado = true;
     }
 }
