@@ -11,25 +11,31 @@
 <body>
     <div class="container">
         <h2>Formulário de Cadastro</h2>
-        <form>
+        <form action="validador_de_cadastro.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                <label for="inputname4">Nome</label>
-                    <input type="text" class="form-control" placeholder="Nome">
+                    <label for="inputname4">Nome</label>
+                    <input name="nome" type="text" class="form-control" placeholder="Nome">
                 </div>
                 <div class="form-group col-md-6">
-                <label for="inputlastname4">Sobrenome</label>
-                    <input type="text" class="form-control" placeholder="Sobrenome">
+                    <label for="inputlastname4">Sobrenome</label>
+                    <input name="sobrenome" type="text" class="form-control" placeholder="Sobrenome">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input name="email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputTell4">Telefone</label>
+                    <input name="telefone" type="tell" class="form-control" id="inputTell4" placeholder="(00)0000-0000">
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6 ">
                     <label for="inputPassword4">Senha</label>
-                    <input type="password" class="form-control larger-input" id="inputPassword4" placeholder="Senha">
+                    <input name="senha" type="password" class="form-control larger-input" id="inputPassword4" placeholder="Senha">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Confirmar Senha</label>
@@ -38,16 +44,16 @@
             </div>
             <div class="form-group">
                 <label for="inputAddress">Endereço</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Rua dos Bobos, nº 0">
+                <input name="endereco" type="text" class="form-control" id="inputAddress" placeholder="Rua dos Bobos, nº 0">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Cidade</label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <input name="cidade" type="text" class="form-control" id="Cidade">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputEstado">Estado</label>
-                    <select id="inputEstado" class="form-control">
+                    <select name="estado" id="inputEstado" class="form-control">
                         <option selected>
                             <script>
                                 var estados = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"];
@@ -61,7 +67,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputCEP">CEP</label>
-                    <input type="text" class="form-control" id="inputCEP" placeholder="0000-0000">
+                    <input name="cep" type="text" class="form-control" id="inputCEP" placeholder="0000-0000">
                 </div>
             </div>
 
@@ -70,13 +76,13 @@
                     <legend class="col-form-label col-sm-2 pt-0">Sexo:</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="opcao1" checked>
+                            <input class="form-check-input" type="radio" name="sexo" id="gridRadios1" value="Masculino" checked>
                             <label class="form-check-label" for="gridRadios1">
                                 Masculino
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="opcao2">
+                            <input class="form-check-input" type="radio" name="sexo" id="gridRadios2" value="Feminino">
                             <label class="form-check-label" for="gridRadios2">
                                 Feminino
                             </label>
@@ -94,7 +100,7 @@
                     </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button type="submit" class="btn btn-primary">Cadastro</button>
         </form>
     </div>
 
