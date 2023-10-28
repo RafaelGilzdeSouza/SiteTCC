@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Formulário de Cadastro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="jquery.inputmask.min.js"></script>
 
@@ -33,13 +34,13 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6 ">
+                <div class="form-group col-md-6">
                     <label for="inputPassword4">Senha</label>
-                    <input name="senha" type="password" class="form-control larger-input" id="inputPassword4" placeholder="Senha">
+                    <input name="senha" type="password" class="form-control" id="inputPassword4" placeholder="Senha">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputPassword4">Confirmar Senha</label>
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="Senha">
+                    <label for="inputConfirmPassword4">Confirmar Senha</label>
+                    <input name="confirmar_senha" type="password" class="form-control" id="inputConfirmPassword4" placeholder="Confirmar Senha">
                 </div>
             </div>
             <div class="form-group">
@@ -49,20 +50,18 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">Cidade</label>
-                    <input name="cidade" type="text" class="form-control" id="Cidade">
+                    <input name="cidade" type="text" class="form-control" id="inputCity">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputEstado">Estado</label>
                     <select name="estado" id="inputEstado" class="form-control">
-                        <option selected>
-                            <script>
-                                var estados = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"];
-
-                                estados.forEach(function(estado) {
-                                    document.write('<option value="' + estado + '">' + estado + '</option>');
-                                });
-                            </script>
-                        </option>
+                        <option selected disabled>Escolha um estado</option>
+                        <?php
+                            $estados = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO"];
+                            foreach ($estados as $estado) {
+                                echo '<option value="' . $estado . '">' . $estado . '</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-2">
@@ -104,7 +103,8 @@
         </form>
     </div>
 
-    <!-- Seu formulário vai aqui -->
+    <!-- Your form goes here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 

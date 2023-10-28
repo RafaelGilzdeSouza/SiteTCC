@@ -20,7 +20,7 @@ $cep = $_POST['cep'];
 $sql = "INSERT INTO usuarios (nome, sobrenome, email, senha, telefone, sexo, endereco, cidade, estado, cep) VALUES ('$nome', '$sobrenome', '$email', '$senha','$telefone', '$sexo', '$endereco', '$cidade', '$estado', '$cep')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Registro inserido com sucesso.";
+    header('Location: index.php');
 } else {
     echo "Erro ao inserir o registro: " . $conn->error;
 }
