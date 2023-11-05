@@ -6,3 +6,9 @@
     width: 350px;
     margin: 0 auto;
   }
+
+  .fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
