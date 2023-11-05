@@ -100,6 +100,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Cadastro</button>
+            
         </form>
     </div>
 

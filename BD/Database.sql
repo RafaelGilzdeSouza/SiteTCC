@@ -16,11 +16,47 @@ cep varchar (8),
 primary key(id)
 );
 SELECT * FROM usuarios;
-
+DELETE FROM usuarios where id > 0;
 
 INSERT INTO usuarios (nome, sobrenome, email, senha, telefone, sexo, endereco, cidade, estado,  cep) VALUES
     ('Rafael', 'Gilz', 'gilzrafa@gmail.com', 'root','44444444444', 'Masculino', 'rua dos bobos', 'Bom retiro', 'sc', '00000000');
 
+CREATE TABLE Medico (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    sobrenome VARCHAR(255) NOT NULL,
+    data_nascimento DATE,
+    sexo ENUM('M', 'F'),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    telefone VARCHAR(20),
+    CRM VARCHAR(20) UNIQUE NOT NULL,
+    especialidade VARCHAR(255),
+    endereco VARCHAR(255),
+    cidade VARCHAR(100),
+    estado VARCHAR(2),
+    cep VARCHAR(10)
+);
 
-    
-    
+INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep)
+VALUES
+    ('João', 'Silva', '1980-05-15', 'M', 'joao.silva@example.com', '(11) 1234-5678', 'CRM12345-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567'),
+    ('Maria', 'Santos', '1975-08-22', 'F', 'maria.santos@example.com', '(21) 9876-5432', 'CRM54321-RJ', 'Pediatra', 'Avenida B, 456', 'Rio de Janeiro', 'RJ', '21098-765'),
+    ('Carlos', 'Pereira', '1990-03-10', 'M', 'carlos.pereira@example.com', '(31) 2222-3333', 'CRM98765-MG', 'Dentista', 'Rua C, 789', 'Belo Horizonte', 'MG', '30123-456'),
+    ('Ana', 'Fernandes', '1988-11-05', 'F', 'ana.fernandes@example.com', '(41) 5555-4444', 'CRM54321-PR', 'Ortopedista', 'Avenida D, 101', 'Curitiba', 'PR', '80001-234'),
+    ('Pedro', 'Oliveira', '1985-12-20', 'M', 'pedro.oliveira@example.com', '(51) 9876-5432', 'CRM12346-RS', 'Ginecologista', 'Rua E, 246', 'Porto Alegre', 'RS', '90012-345'),
+    ('Lucia', 'Rocha', '1995-02-14', 'F', 'lucia.rocha@example.com', '(71) 4444-5555', 'CRM98765-BA', 'Neurologista', 'Avenida F, 789', 'Salvador', 'BA', '40023-456'),
+    ('Marcos', 'Carvalho', '1983-07-30', 'M', 'marcos.carvalho@example.com', '(81) 1234-5678', 'CRM54321-PE', 'Oftalmologista', 'Rua G, 123', 'Recife', 'PE', '50001-234'),
+    ('Isabel', 'Mendes', '1970-09-02', 'F', 'isabel.mendes@example.com', '(61) 5555-4444', 'CRM12345-DF', 'Dermatologista', 'Avenida H, 456', 'Brasília', 'DF', '70012-345'),
+    ('Ricardo', 'Sousa', '1982-04-18', 'M', 'ricardo.sousa@example.com', '(91) 9876-5432', 'CRM98766-PA', 'Cirurgião Geral', 'Rua I, 101', 'Belém', 'PA', '66001-234'),
+    ('Paula', 'Ferreira', '1978-01-07', 'F', 'paula.ferreira@example.com', '(98) 1234-5678', 'CRM54322-MA', 'Oncologista', 'Avenida J, 246', 'São Luís', 'MA', '65023-456'),
+    ('Gustavo', 'Vieira', '1991-06-25', 'M', 'gustavo.vieira@example.com', '(35) 5555-4444', 'CRM12347-MG', 'Cirurgião Plástico', 'Rua K, 123', 'Belo Horizonte', 'MG', '30123-456'),
+    ('Larissa', 'Alves', '1989-10-12', 'F', 'larissa.alves@example.com', '(84) 9876-5432', 'CRM98767-RN', 'Endocrinologista', 'Avenida L, 456', 'Natal', 'RN', '59001-234'),
+    ('Fernando', 'Santana', '1981-03-27', 'M', 'fernando.santana@example.com', '(14) 1234-5678', 'CRM54323-SP', 'Cirurgião Vascular', 'Rua M, 101', 'São Paulo', 'SP', '01234-567'),
+    ('Camila', 'Oliveira', '1993-12-05', 'F', 'camila.oliveira@example.com', '(45) 5555-4444', 'CRM12348-PR', 'Urologista', 'Rua N, 123', 'Curitiba', 'PR', '80001-234'),
+    ('Antônio', 'Ramos', '1973-11-18', 'M', 'antonio.ramos@example.com', '(55) 9876-5432', 'CRM98768-RS', 'Médico de Família', 'Avenida O, 456', 'Porto Alegre', 'RS', '90012-345'),
+    ('Marta', 'Ferreira', '1987-06-29', 'F', 'marta.ferreira@example.com', '(66) 1234-5678', 'CRM54324-MT', 'Dentista', 'Rua P, 101', 'Cuiabá', 'MT', '78001-234'),
+    ('Roberto', 'Almeida', '1974-09-14', 'M', 'roberto.almeida@example.com', '(15) 5555-4444', 'CRM12349-SP', 'Oncologista', 'Avenida Q, 246', 'Sorocaba', 'SP', '18001-234'),
+    ('Sandra', 'Machado', '1990-08-07', 'F', 'sandra.machado@example.com', '(17) 9876-5432', 'CRM98769-SP', 'Pneumologista', 'Rua R, 123', 'São José do Rio Preto', 'SP', '15001-234'),
+    ('Marcelo', 'Cavalcante', '1986-02-22', 'M', 'marcelo.cavalcante@example.com', '(12) 1234-5678', 'CRM54325-SP', 'Cardiologista', 'Avenida S, 456', 'São Paulo', 'SP', '01234-567'),
+    ('Eduarda', 'Lima', '1984-05-10', 'F', 'eduarda.lima@example.com', '(23) 5555-4444', 'CRM12350-ES', 'Pediatra', 'Rua T, 123', 'Vitória', 'ES', '29001-234');
+    select * from medico;

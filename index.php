@@ -35,6 +35,7 @@
                 <div class="text-danger">
                   Por favor, faça login antes de acessar as páginas protegidas
                 </div>
+                
               <?php } ?>
 
               <button class="btn btn-lg btn-info btn-block" type="submit">Entrar</button>
