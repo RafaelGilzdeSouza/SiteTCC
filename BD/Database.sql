@@ -34,9 +34,10 @@ CREATE TABLE Medico (
     endereco VARCHAR(255),
     cidade VARCHAR(100),
     estado VARCHAR(2),
-    cep VARCHAR(10)
+    cep VARCHAR(10),
+    imagem BLOB
 );
-
+drop table Medico;
 INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep)
 VALUES
     ('João', 'Silva', '1980-05-15', 'M', 'joao.silva@example.com', '(11) 1234-5678', 'CRM12345-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567'),
@@ -59,4 +60,8 @@ VALUES
     ('Sandra', 'Machado', '1990-08-07', 'F', 'sandra.machado@example.com', '(17) 9876-5432', 'CRM98769-SP', 'Pneumologista', 'Rua R, 123', 'São José do Rio Preto', 'SP', '15001-234'),
     ('Marcelo', 'Cavalcante', '1986-02-22', 'M', 'marcelo.cavalcante@example.com', '(12) 1234-5678', 'CRM54325-SP', 'Cardiologista', 'Avenida S, 456', 'São Paulo', 'SP', '01234-567'),
     ('Eduarda', 'Lima', '1984-05-10', 'F', 'eduarda.lima@example.com', '(23) 5555-4444', 'CRM12350-ES', 'Pediatra', 'Rua T, 123', 'Vitória', 'ES', '29001-234');
+    
+    INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep, imagem)
+VALUES
+    ('Jão', 'Silva', '1980-05-15', 'M', 'joao.silvas@example.com', '(11) 1234-5678', 'CRM12355-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567','https://drive.google.com/file/d/15d5KGvuAmZ5CiooLv08G3qkqfDy0xwn0/view?usp=sharing');
     select * from medico;
