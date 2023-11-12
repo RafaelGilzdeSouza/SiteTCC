@@ -1,7 +1,6 @@
 <?php
 require_once "validador_acesso.php";
 require "menu.php";
-require "rodape.php";
 ?>
 
 <html>
@@ -12,5 +11,8 @@ require "rodape.php";
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<body>
 
+<?php require "rodape.php";?>
+</body>
 </html>
