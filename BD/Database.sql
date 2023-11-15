@@ -2,7 +2,7 @@ create database Webhealth;
 use webhealth;
 
 create table usuarios(
-id int(4) auto_increment,
+id int not null auto_increment,
 nome varchar(40) not null,
 sobrenome varchar(40) not null,
 email varchar(50)not null,
@@ -16,7 +16,7 @@ cep varchar (8),
 primary key(id)
 );
 SELECT * FROM usuarios;
-DELETE FROM usuarios where id > 0;
+drop table usuarios;
 
 INSERT INTO usuarios (nome, sobrenome, email, senha, telefone, sexo, endereco, cidade, estado,  cep) VALUES
     ('Rafael', 'Gilz', 'gilzrafa@gmail.com', 'root','44444444444', 'Masculino', 'rua dos bobos', 'Bom retiro', 'sc', '00000000');
@@ -35,9 +35,64 @@ CREATE TABLE Medico (
     cidade VARCHAR(100),
     estado VARCHAR(2),
     cep VARCHAR(10),
-    imagem BLOB
+    img_url VARCHAR(255)
 );
 drop table Medico;
+
+CREATE TABLE Consultas (
+    id INT PRIMARY KEY,
+    id_medico INT,
+    id_paciente INT,
+    data DATE,
+    horario TIME,
+    FOREIGN KEY (id_medico) REFERENCES Medico(id),
+    FOREIGN KEY (id_paciente) REFERENCES usuarios(id)
+);
+
+CREATE TABLE HorariosDisponiveis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_medico INT,
+    data DATE,
+    horario TIME,
+    FOREIGN KEY (id_medico) REFERENCES Medico(id)
+);
+
+-- Crie uma tabela de números (se não existir)
+CREATE TABLE IF NOT EXISTS Numbers (n INT PRIMARY KEY);
+INSERT IGNORE INTO Numbers VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9);
+
+
+SET @id_medico := 1;
+SET @data_inicial := '2023-11-06'; -- A data inicial da semana
+SET @horario := '09:00:00'; -- Horário inicial
+
+-- Insira os horários para cada dia da semana
+INSERT INTO HorariosDisponiveis (id_medico, data, horario)
+SELECT
+    @id_medico,
+    DATE_ADD(@data_inicial, INTERVAL n DAY) AS data,
+    @horario
+FROM Numbers
+WHERE DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
+
+select * from HorariosDisponiveis;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep)
 VALUES
     ('João', 'Silva', '1980-05-15', 'M', 'joao.silva@example.com', '(11) 1234-5678', 'CRM12345-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567'),
@@ -61,7 +116,8 @@ VALUES
     ('Marcelo', 'Cavalcante', '1986-02-22', 'M', 'marcelo.cavalcante@example.com', '(12) 1234-5678', 'CRM54325-SP', 'Cardiologista', 'Avenida S, 456', 'São Paulo', 'SP', '01234-567'),
     ('Eduarda', 'Lima', '1984-05-10', 'F', 'eduarda.lima@example.com', '(23) 5555-4444', 'CRM12350-ES', 'Pediatra', 'Rua T, 123', 'Vitória', 'ES', '29001-234');
     
-    INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep, imagem)
+    
+    INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep, img_url)
 VALUES
-    ('Jão', 'Silva', '1980-05-15', 'M', 'joao.silvas@example.com', '(11) 1234-5678', 'CRM12355-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567','https://drive.google.com/file/d/15d5KGvuAmZ5CiooLv08G3qkqfDy0xwn0/view?usp=sharing');
+    ('Jão', 'Silva', '1980-05-15', 'M', 'joao.silvas@example.com', '(11) 1234-5678', 'CRM12355-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567','https://br.freepik.com/fotos-gratis/medico-sorridente-com-estretoscopio-isolado-em-cinza_26673614.htm');
     select * from medico;

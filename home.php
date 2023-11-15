@@ -13,6 +13,7 @@ require "menu.php";
 </head>
 <body>
 
-<?php require "rodape.php";?>
+
 </body>
 </html>
+<?php require "rodape.php";?>
