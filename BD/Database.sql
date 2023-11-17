@@ -37,7 +37,7 @@ CREATE TABLE Medico (
     cep VARCHAR(10),
     img_url VARCHAR(255)
 );
-drop table Medico;
+select * from Medico;
 
 CREATE TABLE Consultas (
     id INT PRIMARY KEY,
@@ -49,21 +49,30 @@ CREATE TABLE Consultas (
     FOREIGN KEY (id_paciente) REFERENCES usuarios(id)
 );
 
-CREATE TABLE HorariosDisponiveis (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_medico INT,
-    data DATE,
-    horario TIME,
-    FOREIGN KEY (id_medico) REFERENCES Medico(id)
-);
+
 
 -- Crie uma tabela de números (se não existir)
 CREATE TABLE IF NOT EXISTS Numbers (n INT PRIMARY KEY);
 INSERT IGNORE INTO Numbers VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9);
 
 
+-- Crie uma tabela para armazenar os horários disponíveis
+CREATE TABLE IF NOT EXISTS HorariosDisponiveis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_medico INT,
+    data DATE,
+    horario TIME,
+    INDEX (id_medico, data, horario),
+    FOREIGN KEY (id_medico) REFERENCES Medico(id)
+);
+
+-- Defina o ID do médico
 SET @id_medico := 1;
+
+-- Defina a data inicial da semana
 SET @data_inicial := '2023-11-06'; -- A data inicial da semana
+
+-- Defina o horário inicial
 SET @horario := '09:00:00'; -- Horário inicial
 
 -- Insira os horários para cada dia da semana
@@ -78,11 +87,31 @@ WHERE DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dia
 select * from HorariosDisponiveis;
 
 
+-- Para cada médico, insira os horários para cada dia da semana
+INSERT INTO HorariosDisponiveis (id_medico, data, horario)
+SELECT
+    m.id AS id_medico,
+    DATE_ADD(@data_inicial, INTERVAL n DAY) AS data,
+    @horario
+FROM Numbers
+CROSS JOIN Medico m
+WHERE DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
 
 
+-- Defina a data inicial do mês
+SET @data_inicial := '2023-12-01';
+SET @horario := '10:00:00'; -- Horário inicial
 
-
-
+-- Insira os horários para cada dia do mês
+INSERT INTO HorariosDisponiveis (id_medico, data, horario)
+SELECT
+    m.id AS id_medico,
+    DATE_ADD(@data_inicial, INTERVAL n DAY) AS data,
+    @horario
+FROM Numbers
+CROSS JOIN Medico m
+WHERE MONTH(DATE_ADD(@data_inicial, INTERVAL n DAY)) = MONTH(@data_inicial) AND
+      DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
 
 
 

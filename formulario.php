@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,16 +8,18 @@
     <title>Perfil do Médico</title>
 </head>
 <body>
+
 <?php
 require "menu.php";
 
-$nome = urldecode($_GET['nome']);
-$especialidade = urldecode($_GET['especialidade']);
-$email = urldecode($_GET['email']);
-$img_url = urldecode($_GET['img_url']);
-$endereco = urldecode($_GET['endereco']);
-$telefone = urldecode($_GET['tell']);
-$crm = urldecode($_GET['crm']);
+// Verificar se as chaves existem no array $_GET
+$nome = isset($_GET['nome']) ? urldecode($_GET['nome']) : '';
+$especialidade = isset($_GET['especialidade']) ? urldecode($_GET['especialidade']) : '';
+$email = isset($_GET['email']) ? urldecode($_GET['email']) : '';
+$img_url = isset($_GET['img_url']) ? urldecode($_GET['img_url']) : '';
+$endereco = isset($_GET['endereco']) ? urldecode($_GET['endereco']) : '';
+$telefone = isset($_GET['tell']) ? urldecode($_GET['tell']) : '';
+$crm = isset($_GET['crm']) ? urldecode($_GET['crm']) : '';
 ?>
 
 <div class="container mt-4">
@@ -40,52 +40,49 @@ $crm = urldecode($_GET['crm']);
     </div>
 
     <!-- Adicione a seção do datepicker fora do card -->
-<div class="mt-4">
-    <h5>Agendar Consulta</h5>
-    <form>
-        <div class="form-group">
-            <label for="datepicker">Selecione uma data:</label>
-            <input type="text" class="form-control" id="datepicker" name="datepicker" autocomplete="off">
-        </div>
-    </form>
-    <!-- Container para mostrar os horários disponíveis -->
-    <div id="horarios-disponiveis"></div>
-</div>
+    <div class="mt-4">
+        <h5>Agendar Consulta</h5>
+        <form>
+            <div class="form-group">
+                <label for="datepicker">Selecione uma data:</label>
+                <input type="text" class="form-control" id="datepicker" name="datepicker" autocomplete="off">
+            </div>
+        </form>
+        <!-- Container para mostrar os horários disponíveis -->
+        <div id="horarios-disponiveis"></div>
+    </div>
 
-<script>
-    // Inicializar o datepicker
-    $(document).ready(function () {
-        $('#datepicker').datepicker({
-            format: 'dd/mm/yyyy', // Formato da data
-            autoclose: true, // Fechar automaticamente após a seleção
-            todayHighlight: true, // Destacar a data atual
-            startDate: new Date() // Impedir seleção de datas passadas
-        });
+    <script>
+       $(document).ready(function () {
+    $('#datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        autoclose: true,
+        todayHighlight: true,
+        startDate: new Date()
+    });
 
-        // Adicionar um evento para quando a data for alterada
-        $('#datepicker').on('changeDate', function (e) {
-            // Obter a data selecionada
-            var dataSelecionada = $('#datepicker').val();
+    $('#datepicker').on('changeDate', function (e) {
+        var dataSelecionada = $('#datepicker').val();
+        console.log('Data Selecionada:', dataSelecionada);
 
-            // Enviar uma solicitação AJAX para obter horários disponíveis
-            $.ajax({
-    type: "POST",
-    url: "obter_horarios.php",
-    data: { data: dataSelecionada },
-    dataType: 'json',  // Adicione esta linha
-    success: function (response) {
-        console.log(response);
-        $('#horarios-disponiveis').html('<h6>Horários Disponíveis:</h6><p>' + response.join('</p><p>') + '</p>');
-    },
-    error: function (xhr, status, error) {
-        console.error(error);
-    }
-});
+        $.ajax({
+            type: "POST",
+            url: "obter_horarios.php",
+            data: { data: dataSelecionada },
+            dataType: 'json',
+            success: function (response) {
+                console.log('Resposta da AJAX:', response);
+                $('#horarios-disponiveis').html('<h6>Horários Disponíveis:</h6><p>' + response.join('</p><p>') + '</p>');
+            },
+            error: function (xhr, status, error) {
+                console.error('Erro na AJAX:', error);
+            }
         });
     });
-</script>
+});
+    </script>
 
-</script>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
