@@ -18,7 +18,7 @@ $especialidade = isset($_GET['especialidade']) ? urldecode($_GET['especialidade'
 $email = isset($_GET['email']) ? urldecode($_GET['email']) : '';
 $img_url = isset($_GET['img_url']) ? urldecode($_GET['img_url']) : '';
 $endereco = isset($_GET['endereco']) ? urldecode($_GET['endereco']) : '';
-$telefone = isset($_GET['tell']) ? urldecode($_GET['tell']) : '';
+$telefone = isset($_GET['tell']) ? urldecode($_GET['tell']) : ''; 
 $crm = isset($_GET['crm']) ? urldecode($_GET['crm']) : '';
 ?>
 
