@@ -37,7 +37,7 @@ $crm = isset($_GET['crm']) ? urldecode($_GET['crm']) : '';
             <p>Fone: <?= $telefone ?></p>
             <p>CRM: <?= $crm ?></p>
         </div>
-    </div>
+    </div>   
 
     <!-- Adicione a seção do datepicker fora do card -->
     <div class="mt-4">
