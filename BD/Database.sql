@@ -39,17 +39,6 @@ CREATE TABLE Medico (
 );
 select * from Medico;
 
-CREATE TABLE Consultas (
-    id INT PRIMARY KEY,
-    id_medico INT,
-    id_paciente INT,
-    data DATE,
-    horario TIME,
-    FOREIGN KEY (id_medico) REFERENCES Medico(id),
-    FOREIGN KEY (id_paciente) REFERENCES usuarios(id)
-);
-
-
 
 -- Crie uma tabela de números (se não existir)
 CREATE TABLE IF NOT EXISTS Numbers (n INT PRIMARY KEY);
@@ -66,41 +55,15 @@ CREATE TABLE IF NOT EXISTS HorariosDisponiveis (
     FOREIGN KEY (id_medico) REFERENCES Medico(id)
 );
 
+ALTER TABLE HorariosDisponiveis
+ADD FOREIGN KEY (id_medico) REFERENCES Medico(id);
+
 -- Defina o ID do médico
 SET @id_medico := 1;
 
--- Defina a data inicial da semana
-SET @data_inicial := '2023-11-06'; -- A data inicial da semana
-
--- Defina o horário inicial
-SET @horario := '09:00:00'; -- Horário inicial
-
--- Insira os horários para cada dia da semana
-INSERT INTO HorariosDisponiveis (id_medico, data, horario)
-SELECT
-    @id_medico,
-    DATE_ADD(@data_inicial, INTERVAL n DAY) AS data,
-    @horario
-FROM Numbers
-WHERE DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
-
-select * from HorariosDisponiveis;
-
-
--- Para cada médico, insira os horários para cada dia da semana
-INSERT INTO HorariosDisponiveis (id_medico, data, horario)
-SELECT
-    m.id AS id_medico,
-    DATE_ADD(@data_inicial, INTERVAL n DAY) AS data,
-    @horario
-FROM Numbers
-CROSS JOIN Medico m
-WHERE DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
-
-
 -- Defina a data inicial do mês
 SET @data_inicial := '2023-12-01';
-SET @horario := '10:00:00'; -- Horário inicial
+SET @horario := '11:00:00'; -- Horário inicial
 
 -- Insira os horários para cada dia do mês
 INSERT INTO HorariosDisponiveis (id_medico, data, horario)
@@ -114,13 +77,30 @@ WHERE MONTH(DATE_ADD(@data_inicial, INTERVAL n DAY)) = MONTH(@data_inicial) AND
       DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
 
 
+select * from HorariosDisponiveis;
 
+CREATE TABLE Consulta (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    data_consulta DATE,
+    horario_consulta TIME,
+    nivel_sintomas VARCHAR(50),
+    sintomas TEXT,
+    outros_sintomas TEXT,
+    historia_medica VARCHAR(50),
+    medicamentos VARCHAR(50),
+    historico_familiar VARCHAR(50),
+    estilo_vida VARCHAR(50),
+    vacinas VARCHAR(50),
+    id_usuario INT,
+    id_medico INT
+);
+ALTER TABLE Consulta
+ADD FOREIGN KEY (id_usuario) REFERENCES usuarios(id);
 
+ALTER TABLE Consulta
+ADD FOREIGN KEY (id_medico) REFERENCES Medico(id);
 
-
-
-
-
+select * from Consulta;
 
 INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep)
 VALUES

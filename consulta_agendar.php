@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once 'conexao.php';
 
 class ConsultaAgendar
 {
@@ -54,7 +56,5 @@ class ConsultaAgendar
             </div>
         </div>';
     }
-    
-    
-    
 }
+?>

@@ -5,7 +5,8 @@
     <!-- Inclua os arquivos CSS e JavaScript do Bootstrap 4 -->
 </head>
 <body>
-<footer class="rodape bg-dark text-white">
+
+<footer class="rodape bg-dark text-white mt-5">
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
@@ -14,5 +15,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>
