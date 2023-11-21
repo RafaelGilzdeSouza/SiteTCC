@@ -20,7 +20,7 @@ class ConsultaAgendar
         }
 
         try {
-            $sql = "SELECT nome, sobrenome, especialidade, img_url, email, telefone, CRM, especialidade, endereco, cidade, estado,cep FROM Medico";
+            $sql = "SELECT id, nome, sobrenome, especialidade, img_url, email, telefone, CRM, especialidade, endereco, cidade, estado,cep FROM Medico";
             $result = $this->conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -51,8 +51,8 @@ class ConsultaAgendar
                 <div class="card-body">
                     <h5 class="card-title">' . $medicoData['nome'] . ' ' . $medicoData['sobrenome'] . '</h5>
                     <p class="card-text">Especialidade: ' . $medicoData['especialidade'] . '</p>
-                    <a href="formulario.php?nome=' . $nomeSobrenome . '&especialidade=' . $especialidade .'&email=' . $emails . '&endereco=' . $endereco . '&img_url=' . $img . '&tell=' . $telefone . '&crm=' . $crm .'" class="btn btn-primary">Agendar</a>
-                </div>
+                    <a href="formulario.php?id_medico=' . $medicoData['id'] . '&nome=' . $nomeSobrenome . '&especialidade=' . $especialidade .'&email=' . $emails . '&endereco=' . $endereco . '&img_url=' . $img . '&tell=' . $telefone . '&crm=' . $crm .'" class="btn btn-primary">Agendar</a>
+                    </div>
             </div>
         </div>';
     }

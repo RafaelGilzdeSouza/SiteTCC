@@ -16,6 +16,7 @@
     include 'consulta_agendar.php';
 
     // Verificar se as chaves existem no array $_GET
+    $id_medico = isset($_GET['id_medico']) ? $_GET['id_medico'] : null;
     $nome = isset($_GET['nome']) ? urldecode($_GET['nome']) : '';
     $especialidade = isset($_GET['especialidade']) ? urldecode($_GET['especialidade']) : '';
     $email = isset($_GET['email']) ? urldecode($_GET['email']) : '';
@@ -39,6 +40,24 @@
                 <p>Endereço: <?= $endereco ?></p>
                 <p>Fone: <?= $telefone ?></p>
                 <p>CRM: <?= $crm ?></p>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Aviso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Por favor, selecione uma data e hora antes de enviar o formulário.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -233,9 +252,14 @@
                 <option value="nao_vacinado">Não Vacinado</option>
             </select>
         </div>
+        <!-- Campos ocultos para id_usuario e id_medico -->
+        <div class="form-group">
+            <input type="hidden" name="id_usuario" value="<?php echo isset($_SESSION['id_usuario']) ? htmlspecialchars($_SESSION['id_usuario']) : ''; ?>">
+            <input type="hidden" name="id_medico" value="<?php echo isset($_GET['id_medico']) ? htmlspecialchars($_GET['id_medico']) : ''; ?>">
+        </div>
 
-        <!-- Botão para agendar a consulta -->
-        <button type="submit" class="btn btn-primary">Cadastro</button>
+<!-- Adicione o evento onclick ao seu botão -->
+<button type="submit" class="btn btn-primary" onclick="return validarEnvio()">Cadastro</button>
         </form>
         <script>
             $(document).ready(function() {
@@ -273,6 +297,20 @@
                     });
                 });
             });
+            function validarEnvio() {
+    var data = document.getElementById('datepicker').value;
+    var horario = document.getElementById('horario').value;
+
+    // Verifique se a data e o horário foram selecionados
+    if (data === '' || horario === '') {
+      // Se não foram selecionados, exiba o modal
+      $('#myModal').modal('show');
+      return false; // Impede o envio do formulário
+    }
+
+    // Se a data e o horário foram selecionados, permita o envio do formulário
+    return true;
+  }
         </script>
 
     </div>

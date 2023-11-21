@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 session_start();
 require_once 'conexao.php';
 
@@ -14,19 +16,20 @@ $result = mysqli_stmt_get_result($stmt);
 
 $usuario_autenticado = false;
 $usuario_id = null;
-$usuario_perfil_id = null;
 
 foreach ($result as $user) {
     if ($user['email'] == $email && $user['senha'] == $senha) {
         $usuario_autenticado = true;
+        $usuario_id = $user['id'];
     }
 }
 
 if ($usuario_autenticado) {
     $_SESSION['autenticado'] = 'SIM';
+    $_SESSION['id_usuario'] = $usuario_id;
     header('Location: home.php');
 } else {
     $_SESSION['autenticado'] = 'NÃO';
-    header('Location: index.php?login=erro');
+   header('Location: index.php?login=erro');
 }
 ?>
