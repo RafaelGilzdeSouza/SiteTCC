@@ -257,10 +257,11 @@
             <input type="hidden" name="id_usuario" value="<?php echo isset($_SESSION['id_usuario']) ? htmlspecialchars($_SESSION['id_usuario']) : ''; ?>">
             <input type="hidden" name="id_medico" value="<?php echo isset($_GET['id_medico']) ? htmlspecialchars($_GET['id_medico']) : ''; ?>">
         </div>
+        
 
 <!-- Adicione o evento onclick ao seu botão -->
 <button type="submit" class="btn btn-primary" onclick="return validarEnvio()">Cadastro</button>
-        </form>
+        </form>    
         <script>
             $(document).ready(function() {
                 $('#datepicker').datepicker({
@@ -296,6 +297,7 @@
                         }
                     });
                 });
+                
             });
             function validarEnvio() {
     var data = document.getElementById('datepicker').value;
@@ -307,7 +309,7 @@
       $('#myModal').modal('show');
       return false; // Impede o envio do formulário
     }
-
+    $('#successModal').modal('show');
     // Se a data e o horário foram selecionados, permita o envio do formulário
     return true;
   }

@@ -23,7 +23,7 @@
           <a class="nav-link" href="agendar.php">Agendar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Minhas Consultas</a>
+          <a class="nav-link" href="minhas_consultas.php">Minhas Consultas</a>
         </li>
       </ul>
 
