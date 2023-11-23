@@ -35,10 +35,10 @@ CREATE TABLE Medico (
     cidade VARCHAR(100),
     estado VARCHAR(2),
     cep VARCHAR(10),
-    img_url VARCHAR(255)
+    img_data VARCHAR(255)
+    
 );
 select * from Medico;
-
 
 -- Crie uma tabela de números (se não existir)
 CREATE TABLE IF NOT EXISTS Numbers (n INT PRIMARY KEY);

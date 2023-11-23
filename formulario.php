@@ -24,13 +24,15 @@
     $endereco = isset($_GET['endereco']) ? urldecode($_GET['endereco']) : '';
     $telefone = isset($_GET['tell']) ? urldecode($_GET['tell']) : '';
     $crm = isset($_GET['crm']) ? urldecode($_GET['crm']) : '';
+    $imgBase64 = isset($medicoData['img_data']) ? base64_encode($medicoData['img_data']) : '';
+
     ?>
 
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
                 <!-- Imagem à esquerda do texto -->
-                <img src="img/medico.jpg" alt="Imagem do Médico" style="width: 100%; max-width: 300px;">
+                <img src="' . $imgBase64 . '" class="card-img-top" alt="Imagem do Médico" style="width: 100%; max-width: 300px;">
             </div>
             <div class="col-md-6">
                 <!-- Texto à direita da imagem -->

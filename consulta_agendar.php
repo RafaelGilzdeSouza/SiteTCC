@@ -20,7 +20,7 @@ class ConsultaAgendar
         }
 
         try {
-            $sql = "SELECT id, nome, sobrenome, especialidade, img_url, email, telefone, CRM, especialidade, endereco, cidade, estado,cep FROM Medico";
+            $sql = "SELECT id, nome, sobrenome, especialidade, img_data, email, telefone, CRM, especialidade, endereco, cidade, estado, cep FROM Medico";
             $result = $this->conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -40,21 +40,24 @@ class ConsultaAgendar
         $nomeSobrenome = urlencode($medicoData['nome'] . ' ' . $medicoData['sobrenome']);
         $especialidade = urlencode($medicoData['especialidade']);
         $emails = urlencode($medicoData['email']);
-        $img = urlencode($medicoData['img_url']);
         $endereco = urlencode($medicoData['endereco'] . ' ' . $medicoData['cidade'] . ' ' . $medicoData['estado'] . ' ' . $medicoData['cep']);
         $telefone = urlencode($medicoData['telefone']);
         $crm = urlencode($medicoData['CRM']);
-        return '
-        <div class="col-md-4 mb-4">
-            <div class="card" style="width: 18rem;">
-                <img src="img/medico.jpg" class="card-img-top" alt="Imagem do Médico">
-                <div class="card-body">
-                    <h5 class="card-title">' . $medicoData['nome'] . ' ' . $medicoData['sobrenome'] . '</h5>
-                    <p class="card-text">Especialidade: ' . $medicoData['especialidade'] . '</p>
-                    <a href="formulario.php?id_medico=' . $medicoData['id'] . '&nome=' . $nomeSobrenome . '&especialidade=' . $especialidade .'&email=' . $emails . '&endereco=' . $endereco . '&img_url=' . $img . '&tell=' . $telefone . '&crm=' . $crm .'" class="btn btn-primary">Agendar</a>
-                    </div>
+        
+        // Converte os dados binários da imagem para uma string base64
+        $imgBase64 = ($medicoData['img_data']);
+
+return '
+    <div class="col-md-4 mb-4">
+        <div class="card" style="width: 18rem;">
+            <img src="' . $imgBase64 . '" class="card-img-top" alt="Imagem do Médico">
+            <div class="card-body">
+                <h5 class="card-title">' . $medicoData['nome'] . ' ' . $medicoData['sobrenome'] . '</h5>
+                <p class="card-text">Especialidade: ' . $medicoData['especialidade'] . '</p>
+                <a href="formulario.php?id_medico=' . $medicoData['id'] . '&nome=' . $nomeSobrenome . '&especialidade=' . $especialidade .'&email=' . $emails . '&endereco=' . $endereco . '&img_data=' . $imgBase64 . '&tell=' . $telefone . '&crm=' . $crm .'" class="btn btn-primary">Agendar</a>
             </div>
-        </div>';
+        </div>
+    </div>';
     }
 }
 ?>
