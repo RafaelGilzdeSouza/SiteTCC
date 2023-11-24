@@ -20,19 +20,19 @@
     $nome = isset($_GET['nome']) ? urldecode($_GET['nome']) : '';
     $especialidade = isset($_GET['especialidade']) ? urldecode($_GET['especialidade']) : '';
     $email = isset($_GET['email']) ? urldecode($_GET['email']) : '';
-    $img_url = isset($_GET['img_url']) ? urldecode($_GET['img_url']) : '';
+    $img_url = isset($_GET['img_data']) ? urldecode($_GET['img_data']) : '';
     $endereco = isset($_GET['endereco']) ? urldecode($_GET['endereco']) : '';
     $telefone = isset($_GET['tell']) ? urldecode($_GET['tell']) : '';
     $crm = isset($_GET['crm']) ? urldecode($_GET['crm']) : '';
-    $imgBase64 = isset($medicoData['img_data']) ? base64_encode($medicoData['img_data']) : '';
 
     ?>
 
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <!-- Imagem à esquerda do texto -->
-                <img src="' . $imgBase64 . '" class="card-img-top" alt="Imagem do Médico" style="width: 100%; max-width: 300px;">
+               <!-- Exemplo de exibição da imagem em formulario.php -->
+<img src="<?php echo $img_url; ?>" alt="Imagem do Médico">
+
             </div>
             <div class="col-md-6">
                 <!-- Texto à direita da imagem -->

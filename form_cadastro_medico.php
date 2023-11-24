@@ -90,7 +90,18 @@
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="senha">Senha</label>
+                                    <input type="password" class="form-control" id="senha" name="senha" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="confirma_senha">Confirmação de Senha</label>
+                                    <input type="password" class="form-control" id="confirma_senha" name="confirma_senha" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-md-12">
+                                    <label for="Foto_de_Perfil">Foto de Perfil</label>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="customFileLang" name="imagem" accept="image/*">
                                         <label class="custom-file-label" for="customFileLang">Selecionar Arquivo</label>

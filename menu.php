@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="home.php">Logo</a>
@@ -24,6 +25,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="minhas_consultas.php">Minhas Consultas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="horarios_atendimento.php">Meu Horário de Atendimento</a>
         </li>
       </ul>
 
