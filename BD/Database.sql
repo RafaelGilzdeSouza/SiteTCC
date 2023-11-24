@@ -38,6 +38,9 @@ CREATE TABLE Medico (
     img_data VARCHAR(255)
     
 );
+ALTER TABLE Medico
+ADD COLUMN senha VARCHAR(255) NOT NULL;
+
 select * from Medico;
 
 -- Crie uma tabela de números (se não existir)
@@ -55,6 +58,7 @@ CREATE TABLE IF NOT EXISTS HorariosDisponiveis (
     FOREIGN KEY (id_medico) REFERENCES Medico(id)
 );
 
+select * from HorariosDisponiveis;
 ALTER TABLE HorariosDisponiveis
 ADD FOREIGN KEY (id_medico) REFERENCES Medico(id);
 
