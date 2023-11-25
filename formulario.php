@@ -29,6 +29,20 @@
     $telefone = isset($_GET['tell']) ? urldecode($_GET['tell']) : '';
     $crm = isset($_GET['crm']) ? urldecode($_GET['crm']) : '';
 
+
+    if (isset($_SESSION['sucesso'])) {
+        echo '<script>
+                 window.onload = function() {
+                     alert("' . $_SESSION['sucesso'] . '");
+                 }
+             </script>';
+    
+        // Limpar a variável de sessão após exibir a mensagem
+        unset($_SESSION['sucesso']);
+    }
+    
+
+
     ?>
 
     <div class="container mt-4">
@@ -269,58 +283,65 @@
 <button type="submit" class="btn btn-primary" onclick="return validarEnvio()">Cadastro</button>
         </form>    
         <script>
-            $(document).ready(function() {
-                $('#datepicker').datepicker({
-                    format: 'yyyy/mm/dd',
-                    autoclose: true,
-                    todayHighlight: true,
-                    startDate: new Date()
-                });
+    $(document).ready(function() {
+        $('#datepicker').datepicker({
+            format: 'yyyy/mm/dd',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: new Date()
+        });
 
-                $('#datepicker').on('changeDate', function(e) {
-                    var dataSelecionada = $('#datepicker').val();
-                    console.log('Data Selecionada:', dataSelecionada);
+        $('#datepicker').on('changeDate', function(e) {
+            var dataSelecionada = $('#datepicker').val();
+            console.log('Data Selecionada:', dataSelecionada);
 
-                    $.ajax({
-                        type: "POST",
-                        url: "obter_horarios.php",
-                        data: {
-                            data: dataSelecionada
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            console.log('Resposta da AJAX:', response);
+            // Obtém o id_medico da URL ou de onde quer que ele esteja disponível
+            var id_medico = <?php echo isset($_GET['id_medico']) ? $_GET['id_medico'] : 'null'; ?>;
 
-                            // Preencha a lista de seleção com os horários disponíveis
-                            var horarioSelect = $('#horario');
-                            horarioSelect.empty();
-                            $.each(response, function(index, value) {
-                                horarioSelect.append('<option value="' + value + '">' + value + '</option>');
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Erro na AJAX:', error);
-                        }
+            // Adiciona o id_medico aos dados da requisição
+            var requestData = {
+                data: dataSelecionada,
+                id_medico: id_medico
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "obter_horarios.php",
+                data: requestData,
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Resposta da AJAX:', response);
+
+                    // Preencha a lista de seleção com os horários disponíveis
+                    var horarioSelect = $('#horario');
+                    horarioSelect.empty();
+                    $.each(response, function(index, value) {
+                        horarioSelect.append('<option value="' + value + '">' + value + '</option>');
                     });
-                });
-                
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro na AJAX:', error);
+                }
             });
-            
-            function validarEnvio() {
-    var data = document.getElementById('datepicker').value;
-    var horario = document.getElementById('horario').value;
+        });
+    });
 
-    // Verifique se a data e o horário foram selecionados
-    if (data === '' || horario === '') {
-      // Se não foram selecionados, exiba o modal
-      $('#myModal').modal('show');
-      return false; // Impede o envio do formulário
+    function validarEnvio() {
+        var data = document.getElementById('datepicker').value;
+        var horario = document.getElementById('horario').value;
+
+        // Verifique se a data e o horário foram selecionados
+        if (data === '' || horario === '') {
+            // Se não foram selecionados, exiba o modal
+            $('#myModal').modal('show');
+            return false; // Impede o envio do formulário
+        }
+        $('#successModal').modal('show');
+        // Se a data e o horário foram selecionados, permita o envio do formulário
+        return true;
     }
-    $('#successModal').modal('show');
-    // Se a data e o horário foram selecionados, permita o envio do formulário
-    return true;
-  }
-        </script> 
+</script>
+
 
     </div>
 

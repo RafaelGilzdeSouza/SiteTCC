@@ -35,11 +35,10 @@ CREATE TABLE Medico (
     cidade VARCHAR(100),
     estado VARCHAR(2),
     cep VARCHAR(10),
-    img_data VARCHAR(255)
-    
+    img_data VARCHAR(255),
+    senha VARCHAR(255) NOT NULL
 );
-ALTER TABLE Medico
-ADD COLUMN senha VARCHAR(255) NOT NULL;
+
 
 select * from Medico;
 
@@ -49,18 +48,22 @@ INSERT IGNORE INTO Numbers VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9);
 
 
 -- Crie uma tabela para armazenar os horários disponíveis
-CREATE TABLE IF NOT EXISTS HorariosDisponiveis (
+CREATE TABLE HorariosDisponiveis (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_medico INT,
-    data DATE,
-    horario TIME,
-    INDEX (id_medico, data, horario),
-    FOREIGN KEY (id_medico) REFERENCES Medico(id)
+    FOREIGN KEY (id_medico) REFERENCES Medico(id),
+    data DATE NOT NULL,
+    horario TIME NOT NULL
 );
+drop table HorariosDisponiveis;
 
 select * from HorariosDisponiveis;
+
 ALTER TABLE HorariosDisponiveis
 ADD FOREIGN KEY (id_medico) REFERENCES Medico(id);
+--------------------------------------------------------------------------------
+-- Remover o procedimento existente, se existir
+DROP PROCEDURE IF EXISTS inserir_horarios;
 
 -- Defina o ID do médico
 SET @id_medico := 1;
@@ -69,18 +72,36 @@ SET @id_medico := 1;
 SET @data_inicial := '2023-12-01';
 SET @horario := '11:00:00'; -- Horário inicial
 
--- Insira os horários para cada dia do mês
-INSERT INTO HorariosDisponiveis (id_medico, data, horario)
-SELECT
-    m.id AS id_medico,
-    DATE_ADD(@data_inicial, INTERVAL n DAY) AS data,
-    @horario
-FROM Numbers
-CROSS JOIN Medico m
-WHERE MONTH(DATE_ADD(@data_inicial, INTERVAL n DAY)) = MONTH(@data_inicial) AND
-      DAYOFWEEK(DATE_ADD(@data_inicial, INTERVAL n DAY)) BETWEEN 2 AND 6; -- Dias úteis (segunda a sexta-feira)
+-- Criar o novo procedimento
+DELIMITER //
+CREATE PROCEDURE inserir_horarios()
+BEGIN
+  DECLARE n INT DEFAULT 0;
 
+  WHILE n < 31 DO
+   
 
+    -- Verificar se já existe um horário para o médico na data específica
+    IF NOT EXISTS (
+        SELECT 1
+        FROM HorariosDisponiveis hd
+        WHERE hd.id_medico = @id_medico AND
+          hd.data = DATE_ADD(@data_inicial, INTERVAL n DAY) AND
+          hd.horario = @horario
+      ) THEN
+      -- Se não existir, então podemos inserir
+      INSERT INTO HorariosDisponiveis (id_medico, data, horario)
+      VALUES (@id_medico, DATE_ADD(@data_inicial, INTERVAL n DAY), @horario);
+    END IF;
+     SET n = n + 1;
+  END WHILE;
+END //
+DELIMITER ;
+
+-- Chame o procedimento para inserir os horários
+CALL inserir_horarios();
+
+---------------------------------------------------------------------------------
 select * from HorariosDisponiveis;
 
 CREATE TABLE Consulta (
@@ -133,4 +154,9 @@ VALUES
     INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep, img_url)
 VALUES
     ('Jão', 'Silva', '1980-05-15', 'M', 'joao.silvas@example.com', '(11) 1234-5678', 'CRM12355-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567','https://br.freepik.com/fotos-gratis/medico-sorridente-com-estretoscopio-isolado-em-cinza_26673614.htm');
-    select * from medico;
+  
+    
+    
+    DELETE FROM HorariosDisponiveis WHERE id_medico = 2;
+DELETE FROM Medico WHERE id = 2;
+    DELETE FROM Medico WHERE id = 2;

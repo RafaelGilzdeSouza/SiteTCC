@@ -32,23 +32,24 @@ if (isset($_POST['date'], $_POST['horario'], $_POST['nivel_sintomas'], $_POST['s
             $query->bind_param("ssssssssssss", $idUsuario, $idMedico, $dataSelecionada, $horarioSelecionado, $nivelSintomas, $sintomas, $outrosSintomas, $historiaMedica, $medicamentos, $historicoFamiliar, $estiloVida, $vacinas);
             // Executa a consulta
             if ($query->execute()) {
-                echo 'Dados inseridos com sucesso!';
+                $_SESSION['sucesso'] = 'Dados inserido com sucesso!';
             } else {
-                echo 'Erro na inserção dos dados: ' . $query->error;
+                $_SESSION['sucesso'] = 'Erro na inserção dos dados: ' . $query->error;
             }
 
             // Fecha a instrução preparada
             $query->close();
+            header('Location: formulario.php');
         } else {
-            echo 'Erro na preparação da consulta.';
+            $_SESSION['sucesso'] ='Erro na preparação da consulta.';
         }
     } else {
-        echo 'Erro na conexão com o banco de dados.';
+        $_SESSION['sucesso'] ='Erro na conexão com o banco de dados.';
     }
 
     // Fecha a conexão com o banco de dados (se ainda não foi fechada)
     $conn->close();
 } else {
-    echo 'Parâmetros POST ausentes ou inválidos.';
+    $_SESSION['sucesso'] = 'Parâmetros POST ausentes ou inválidos.';
 }
 ?>

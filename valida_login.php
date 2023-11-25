@@ -38,7 +38,7 @@ foreach ($resultUsuario as $user) {
 if ($medico_autenticado) {
     $_SESSION['autenticado'] = 'SIM';
     $_SESSION['tipo_usuario'] = 'medico';
-    $_SESSION['id_usuario'] = $medico_id;
+    $_SESSION['id_medico'] = $medico_id;
     header('Location: home.php');
 } elseif ($usuario_autenticado) {
     $_SESSION['autenticado'] = 'SIM';

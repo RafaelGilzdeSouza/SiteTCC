@@ -10,7 +10,7 @@ error_log("Data Recebida: " . $data); // Adicione este log
 $sql = "SELECT horario FROM HorariosDisponiveis WHERE id_medico = ? AND data = ?";
 $stmt = $conn->prepare($sql);
 
-$id_medico = 1; // Substitua pelo ID real do médico
+$id_medico = isset($_POST['id_medico']) ? $_POST['id_medico'] : null;
 $stmt->bind_param("is", $id_medico, $data);
 
 $stmt->execute();
