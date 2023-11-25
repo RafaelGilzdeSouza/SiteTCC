@@ -2,41 +2,58 @@
 session_start();
 require_once 'conexao.php';
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Receba os dados do formulário
-    $dia = $_POST['dia'];
-    $horarios = $_POST['horarios'];
-
-    // Verifique se a conexão com o banco de dados foi estabelecida com sucesso
-    if ($conn) {
-        // Obter o ID do médico logado
+    if (
+        isset($_SESSION['autenticado']) && $_SESSION['autenticado'] === 'SIM' &&
+        isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'medico'
+    ) {
         $idMedico = $_SESSION['id_usuario'];
 
-        // Preparar a consulta para inserir os horários no banco de dados
-        $query = $conn->prepare("INSERT INTO HorariosDisponiveis (id_medico, data, horario) VALUES (?, ?, ?)");
+        $diasDaSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+        $horarios = [];
 
-        if ($query) {
-            // Vincular os parâmetros e executar a consulta para cada horário
-            foreach ($horarios as $horario) {
-                $dataHorario = date('Y-m-d H:i:s', strtotime("$dia $horario"));
-                $query->bind_param("iss", $idMedico, $dataHorario, $horario);
-                $query->execute();
+        foreach ($diasDaSemana as $dia) {
+            $campoHorario = 'horario';
+            $horario = isset($_POST[$campoHorario]) ? $_POST[$campoHorario] : null;
+
+            // Verificar se o horário é válido (aceitar apenas formato HH:mm)
+            if ($horario && preg_match('/^\d{2}:\d{2}$/', $horario)) {
+                $horarios[$dia] = $horario;
+            } else {
+                // Horário inválido, você pode lidar com isso conforme necessário
+                echo json_encode(['status' => 'error', 'message' => 'Horário inválido.']);
+                exit();
             }
+        }
 
-            // Fechar a consulta preparada
-            $query->close();
+        if ($conn) {
+            $query = $conn->prepare("INSERT INTO HorariosDisponiveis (id_medico, data, horario) VALUES (?, ?, ?)");
 
-            // Redirecionar para a página de sucesso ou outra página desejada
-            header('Location: sucesso.php');
-            exit();
+            if ($query) {
+                foreach ($horarios as $dia => $horario) {
+                    $dataHorario = date('Y-m-d H:i:s', strtotime("$dia $horario"));
+                    $query->bind_param("iss", $idMedico, $dataHorario, $horario);
+                    $query->execute();
+                }
+
+                $query->close();
+
+                echo json_encode(['status' => 'success']);
+                exit();
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Erro na preparação da consulta.']);
+                exit();
+            }
         } else {
-            echo 'Erro na preparação da consulta.';
+            echo json_encode(['status' => 'error', 'message' => 'Erro na conexão com o banco de dados.']);
+            exit();
         }
     } else {
-        echo 'Erro na conexão com o banco de dados.';
+        echo json_encode(['status' => 'error', 'message' => 'Médico não autenticado.']);
+        exit();
     }
 } else {
-    echo 'Método de requisição inválido.';
+    echo json_encode(['status' => 'error', 'message' => 'Método de requisição inválido.']);
+    exit();
 }
 ?>

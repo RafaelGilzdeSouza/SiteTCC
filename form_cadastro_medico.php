@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+    <?PHP 
+    require "menu.php";
+    ?>
 
 <head>
     <meta charset="UTF-8">
