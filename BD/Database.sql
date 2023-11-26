@@ -53,8 +53,10 @@ CREATE TABLE HorariosDisponiveis (
     id_medico INT,
     FOREIGN KEY (id_medico) REFERENCES Medico(id),
     data DATE NOT NULL,
-    horario TIME NOT NULL
+    horario TIME NOT NULL,
+    disponivel BOOLEAN NOT NULL DEFAULT 1 -- Adiciona a coluna disponivel (BOOLEAN) com valor padrão 1 (disponível)
 );
+
 drop table HorariosDisponiveis;
 
 select * from HorariosDisponiveis;
