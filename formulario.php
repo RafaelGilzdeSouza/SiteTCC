@@ -41,15 +41,13 @@
         unset($_SESSION['sucesso']);
     }
     
-
-
     ?>
 
     <div class="container mt-4">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 " >
                <!-- Exemplo de exibição da imagem em formulario.php -->
-<img src="<?php echo $img_url; ?>" alt="Imagem do Médico">
+<img src="<?php echo $img_url; ?>" alt="Imagem do Médico" style="width: 18rem;">
 
             </div>
             <div class="col-md-6">
