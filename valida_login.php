@@ -50,3 +50,6 @@ if ($medico_autenticado) {
     header('Location: index.php?login=erro');
 }
 ?>
+
+
+
