@@ -15,8 +15,8 @@ estado varchar(2)not null,
 cep varchar (8),
 primary key(id)
 );
+
 SELECT * FROM usuarios;
-drop table usuarios;
 
 INSERT INTO usuarios (nome, sobrenome, email, senha, telefone, sexo, endereco, cidade, estado,  cep) VALUES
     ('Rafael', 'Gilz', 'gilzrafa@gmail.com', 'root','44444444444', 'Masculino', 'rua dos bobos', 'Bom retiro', 'sc', '00000000');
@@ -42,11 +42,6 @@ CREATE TABLE Medico (
 
 select * from Medico;
 
--- Crie uma tabela de números (se não existir)
-CREATE TABLE IF NOT EXISTS Numbers (n INT PRIMARY KEY);
-INSERT IGNORE INTO Numbers VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9);
-
-
 -- Crie uma tabela para armazenar os horários disponíveis
 CREATE TABLE HorariosDisponiveis (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -57,54 +52,9 @@ CREATE TABLE HorariosDisponiveis (
     disponivel BOOLEAN NOT NULL DEFAULT 1 -- Adiciona a coluna disponivel (BOOLEAN) com valor padrão 1 (disponível)
 );
 
-drop table HorariosDisponiveis;
-
 select * from HorariosDisponiveis;
 
-ALTER TABLE HorariosDisponiveis
-ADD FOREIGN KEY (id_medico) REFERENCES Medico(id);
 --------------------------------------------------------------------------------
--- Remover o procedimento existente, se existir
-DROP PROCEDURE IF EXISTS inserir_horarios;
-
--- Defina o ID do médico
-SET @id_medico := 1;
-
--- Defina a data inicial do mês
-SET @data_inicial := '2023-12-01';
-SET @horario := '11:00:00'; -- Horário inicial
-
--- Criar o novo procedimento
-DELIMITER //
-CREATE PROCEDURE inserir_horarios()
-BEGIN
-  DECLARE n INT DEFAULT 0;
-
-  WHILE n < 31 DO
-   
-
-    -- Verificar se já existe um horário para o médico na data específica
-    IF NOT EXISTS (
-        SELECT 1
-        FROM HorariosDisponiveis hd
-        WHERE hd.id_medico = @id_medico AND
-          hd.data = DATE_ADD(@data_inicial, INTERVAL n DAY) AND
-          hd.horario = @horario
-      ) THEN
-      -- Se não existir, então podemos inserir
-      INSERT INTO HorariosDisponiveis (id_medico, data, horario)
-      VALUES (@id_medico, DATE_ADD(@data_inicial, INTERVAL n DAY), @horario);
-    END IF;
-     SET n = n + 1;
-  END WHILE;
-END //
-DELIMITER ;
-
--- Chame o procedimento para inserir os horários
-CALL inserir_horarios();
-
----------------------------------------------------------------------------------
-select * from HorariosDisponiveis;
 
 CREATE TABLE Consulta (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -121,13 +71,20 @@ CREATE TABLE Consulta (
     id_usuario INT,
     id_medico INT
 );
-ALTER TABLE Consulta
-ADD FOREIGN KEY (id_usuario) REFERENCES usuarios(id);
-
-ALTER TABLE Consulta
-ADD FOREIGN KEY (id_medico) REFERENCES Medico(id);
 
 select * from Consulta;
+
+
+CREATE TABLE Receitas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_consulta INT,
+    resultado TEXT,
+    posologia text,
+    data_emissao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_consulta) REFERENCES Consulta(id)
+);
+
+select * from Receitas;
 
 INSERT INTO Medico (nome, sobrenome, data_nascimento, sexo, email, telefone, CRM, especialidade, endereco, cidade, estado, cep)
 VALUES
@@ -157,8 +114,3 @@ VALUES
 VALUES
     ('Jão', 'Silva', '1980-05-15', 'M', 'joao.silvas@example.com', '(11) 1234-5678', 'CRM12355-SP', 'Cardiologista', 'Rua A, 123', 'São Paulo', 'SP', '01234-567','https://br.freepik.com/fotos-gratis/medico-sorridente-com-estretoscopio-isolado-em-cinza_26673614.htm');
   
-    
-    
-    DELETE FROM HorariosDisponiveis WHERE id_medico = 2;
-DELETE FROM Medico WHERE id = 2;
-    DELETE FROM Medico WHERE id = 2;

@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <?PHP 
-    require "menu.php";
-    ?>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Médico</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<?php require 'header.php';    ?>
 </head>
 
 <body>
@@ -93,15 +87,19 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="senha">Senha</label>
-                                    <input type="password" class="form-control" id="senha" name="senha" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="confirma_senha">Confirmação de Senha</label>
-                                    <input type="password" class="form-control" id="confirma_senha" name="confirma_senha" required>
-                                </div>
-                            </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Senha</label>
+                    <input name="senha" type="password" class="form-control" id="inputPassword4" placeholder="Senha">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputConfirmPassword4">Confirmar Senha</label>
+                    <input name="confirmar_senha" type="password" class="form-control" id="inputConfirmPassword4"
+                        placeholder="Confirmar Senha" oninput="validarSenha()">
+                    <small id="senhaHelpBlock" class="form-text text-muted">
+                        As senhas devem ser iguais.
+                    </small>
+                </div>
+            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="Foto_de_Perfil">Foto de Perfil</label>
@@ -112,13 +110,33 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Cadastrar Médico</button>
+                            <button type="submit" class="btn btn-primary" id="btnCadastro" disabled>Cadastrar </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    function validarSenha() {
+        var senha = document.getElementById("inputPassword4").value;
+        var confirmarSenha = document.getElementById("inputConfirmPassword4").value;
+        var senhaHelpBlock = document.getElementById("senhaHelpBlock");
+        var botaoCadastro = document.getElementById("btnCadastro");
+
+        if (senha === confirmarSenha) {
+            senhaHelpBlock.style.color = "green";
+            senhaHelpBlock.style.backgroundColor = "#00FF00";
+            senhaHelpBlock.innerHTML = "Senhas coincidem!";
+            botaoCadastro.disabled = false;
+        } else {
+            senhaHelpBlock.style.color = "red";
+            senhaHelpBlock.style.backgroundColor = "#f8d7da"; 
+            senhaHelpBlock.innerHTML = "Senhas não coincidem.";
+            botaoCadastro.disabled = true;
+        }
+    }
+</script>
 
 </body>
 

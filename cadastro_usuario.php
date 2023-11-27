@@ -2,10 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Formulário de Cadastro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="jquery.inputmask.min.js"></script>
+<?php require 'header.php';    ?>
 
 </head>
 
@@ -24,11 +21,16 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="inputBirthdate">Data de Nascimento</label>
+                    <input name="data_nascimento" type="date" class="form-control" id="inputBirthdate">
+                </div>
+            
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
                     <input name="email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label for="inputTell4">Telefone</label>
                     <input name="telefone" type="tell" class="form-control" id="inputTell4" placeholder="(00)0000-0000">
                 </div>
@@ -40,7 +42,11 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputConfirmPassword4">Confirmar Senha</label>
-                    <input name="confirmar_senha" type="password" class="form-control" id="inputConfirmPassword4" placeholder="Confirmar Senha">
+                    <input name="confirmar_senha" type="password" class="form-control" id="inputConfirmPassword4"
+                        placeholder="Confirmar Senha" oninput="validarSenha()">
+                    <small id="senhaHelpBlock" class="form-text text-muted">
+                        As senhas devem ser iguais.
+                    </small>
                 </div>
             </div>
             <div class="form-group">
@@ -99,13 +105,35 @@
                     </label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Cadastro</button>
-            
+          
+            <button type="submit" class="btn btn-primary" id="btnCadastro" disabled>Cadastro</button>
         </form>
     </div>
 
+
+    <script>
+    function validarSenha() {
+        var senha = document.getElementById("inputPassword4").value;
+        var confirmarSenha = document.getElementById("inputConfirmPassword4").value;
+        var senhaHelpBlock = document.getElementById("senhaHelpBlock");
+        var botaoCadastro = document.getElementById("btnCadastro");
+
+        if (senha === confirmarSenha) {
+            senhaHelpBlock.style.color = "green";
+            senhaHelpBlock.style.backgroundColor = "#00FF00";
+            senhaHelpBlock.innerHTML = "Senhas coincidem!";
+            botaoCadastro.disabled = false;
+        } else {
+            senhaHelpBlock.style.color = "red";
+            senhaHelpBlock.style.backgroundColor = "#f8d7da"; 
+            senhaHelpBlock.innerHTML = "Senhas não coincidem.";
+            botaoCadastro.disabled = true;
+        }
+    }
+</script>
     <!-- Your form goes here -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 

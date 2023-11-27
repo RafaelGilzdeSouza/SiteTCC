@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Inclua os arquivos CSS e JavaScript do Bootstrap 4 -->
-</head>
 <body>
 
 <footer class="rodape bg-dark text-white mt-5">
