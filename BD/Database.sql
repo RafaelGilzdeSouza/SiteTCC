@@ -39,8 +39,12 @@ CREATE TABLE Medico (
     senha VARCHAR(255) NOT NULL
 );
 
-
 select * from Medico;
+
+
+UPDATE Medico
+SET senha = 'root', img_data = 'img/profile/medico.jpg'
+WHERE id = 21;
 
 -- Crie uma tabela para armazenar os horários disponíveis
 CREATE TABLE HorariosDisponiveis (
