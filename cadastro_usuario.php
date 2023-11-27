@@ -7,8 +7,14 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>Formulário de Cadastro</h2>
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        Cadastro de Usuário
+                    </div>
+                    <div class="card-body">
         <form action="validador_de_cadastro.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -109,7 +115,11 @@
             <button type="submit" class="btn btn-primary" id="btnCadastro" disabled>Cadastro</button>
         </form>
     </div>
-
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
     function validarSenha() {

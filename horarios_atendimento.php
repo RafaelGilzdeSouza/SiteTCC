@@ -61,3 +61,6 @@ if (isset($_SESSION['mensagem'])) {
 
 </body>
 </html>
+<?php
+require "rodape.php";
+?>
