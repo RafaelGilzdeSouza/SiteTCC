@@ -1,5 +1,5 @@
 create database Webhealth;
-use webhealth; 
+use webhealth;
 
 create table usuarios(
 id int not null auto_increment,
