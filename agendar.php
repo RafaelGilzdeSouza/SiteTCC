@@ -9,7 +9,7 @@ require "menu.php";
 <html lang="en">
 
 <head>
-<?php require 'header.php';    ?> 
+<?php require 'header.php';   ?> 
 </head>
 
 <body>
