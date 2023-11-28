@@ -102,15 +102,6 @@
                 </div>
             </fieldset>
 
-
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Clique em mim
-                    </label>
-                </div>
-            </div>
           
             <button type="submit" class="btn btn-primary" id="btnCadastro" disabled>Cadastro</button>
         </form>
